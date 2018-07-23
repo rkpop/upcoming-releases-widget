@@ -8,22 +8,22 @@ def row_get(html)
   field_of_interest
 end
 
-def data_generation(row, release_date)
-  row_data = row.css('td')
-  release_date = row_data[0].text unless row_data[0].text == ''
-  # WHAT THE FUCK RUBY
-  release_time = if row_data[1].text != '' || row_data[1].text != '?'
-                   row_data[1].text
-                 else
-                   '00:00'
-                 end
-  artist_name = row_data[2].text
-  album_title = row_data[3].text
-  album_type = row_data[4].text
-  title_track = row_data[5].text
+def process_release_time(row_text)
+  return '00:00' if ['', '?'].include? row_text
+  row_text
+end
+
+def process_release_date(row_text, last_known_date)
+  return last_known_date if row_text == ''
+  row_text[0..-3]
+end
+
+def data_generation(row_data, release_date)
+  release_date = process_release_date(row_data[0].text, release_date)
+  release_time = process_release_time(row_data[1].text)
   result = { release_date: release_date, release_time: release_time,
-             artist_name: artist_name, album_title: album_title,
-             album_type: album_type, title_track: title_track }
+             artist_name: row_data[2].text, album_title: row_data[3].text,
+             album_type: row_data[4].text, title_track: row_data[5].text }
   result
 end
 
@@ -32,7 +32,7 @@ def parse(response)
   release_date = nil
   rows = row_get(response)
   rows.each do |row|
-    row_result = data_generation(row, release_date)
+    row_result = data_generation(row.css('td'), release_date)
     release_date = row_result[:release_date]
     final_array << row_result
   end
@@ -42,15 +42,16 @@ end
 def request(current_time)
   header = { 'User-Agent' => 'Mozilla' }
   reddit_url = 'https://www.reddit.com/r/kpop/wiki/upcoming-releases/'\
-               "#{current_time[:year]}/#{current_time[:month]}"
+               "#{current_time[:year]}/#{current_time[:month_literal]}"
   response = HTTParty.get(reddit_url, headers: header).body
   response
 end
 
 def current_time
   today = Date.today
-  year = today.year
   month = Date::MONTHNAMES[today.month]
-  final_structure = { year: year, month: month }
-  final_structure # Ruby, what the fuck?
+  final_structure = { year: today.year,
+                      month: today.month,
+                      month_literal: month }
+  final_structure
 end
