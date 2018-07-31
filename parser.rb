@@ -1,6 +1,6 @@
 require 'httparty'
 require 'nokogiri'
-require 'date'
+require_relative 'time_wrapper'
 
 def row_get(html)
   table = Nokogiri::HTML(html).css('table')[1]
@@ -9,13 +9,14 @@ def row_get(html)
 end
 
 def process_release_time(row_text)
-  return '00:00' if ['', '?'].include? row_text
-  row_text
+  return {hour: 0, minute: 0} if ['', '?'].include? row_text
+  split = row_text.split(':')
+  {hour: split.first.to_i, minute: split.last.to_i}
 end
 
 def process_release_date(row_text, last_known_date)
   return last_known_date if row_text == ''
-  row_text[0..-3]
+  row_text[0..-3].to_i
 end
 
 def data_generation(row_data, release_date)
@@ -45,13 +46,4 @@ def request(current_time)
                "#{current_time[:year]}/#{current_time[:month_literal]}"
   response = HTTParty.get(reddit_url, headers: header).body
   response
-end
-
-def current_time
-  today = Date.today
-  month = Date::MONTHNAMES[today.month]
-  final_structure = { year: today.year,
-                      month: today.month,
-                      month_literal: month }
-  final_structure
 end
