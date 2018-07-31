@@ -63,3 +63,4 @@ build-iPhoneSimulator/
 # End of https://www.gitignore.io/api/ruby,visualstudiocode
 
 config.toml
+calendar_entries.db

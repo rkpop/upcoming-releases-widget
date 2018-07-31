@@ -3,3 +3,7 @@ calendar_id = ""
 client_id = ""
 client_secret = ""
 refresh_token = ""
+
+[sqlite]
+database_name = ""
+table_name = ""
