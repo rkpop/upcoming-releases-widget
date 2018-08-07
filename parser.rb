@@ -9,9 +9,9 @@ def row_get(html)
 end
 
 def process_release_time(row_text)
-  return {hour: 0, minute: 0} if ['', '?'].include? row_text
+  return { hour: 0, minute: 0 } if ['', '?'].include? row_text
   split = row_text.split(':')
-  {hour: split.first.to_i, minute: split.last.to_i}
+  { hour: split.first.to_i, minute: split.last.to_i }
 end
 
 def process_release_date(row_text, last_known_date)

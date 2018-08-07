@@ -13,24 +13,21 @@ def generate_calendar(entry)
                         0,
                         '+09:00')
   end_time = start_time + 3600
-  final_structure = {title: title,
-                     start_time: start_time,
-                     end_time: end_time}
+  final_structure = { title: title,
+                      start_time: start_time,
+                      end_time: end_time,
+                      description: entry[:album_type] }
   final_structure
 end
 
-def upload(config, data)
-  calendar = Google::Calendar.new(client_id: config[:client_id],
-                                  client_secret: config[:client_secret],
-                                  calendar: config[:calendar_id],
-                                  redirect_url: 'urn:ietf:wg:oauth:2.0:oob',
-                                  refresh_token: config[:refresh_token])
+def upload(calendar, data)
   data.each do |entry|
     proper_entry = generate_calendar(entry)
     event_id = calendar.create_event do |e|
       e.title = proper_entry[:title]
       e.start_time = proper_entry[:start_time]
       e.end_time = proper_entry[:end_time]
+      e.description = proper_entry[:description]
     end
     puts event_id
   end
