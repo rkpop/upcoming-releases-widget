@@ -6,4 +6,3 @@ refresh_token = ""
 
 [sqlite]
 database_name = ""
-table_name = ""
