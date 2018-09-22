@@ -5,6 +5,8 @@ require_relative 'time_wrapper'
 require_relative 'database'
 require 'time'
 
+# Calendar class
+# Main calendar update/upload implementation
 class Calendar
   def initialize(calendar_instance, database_instance)
     @calendar = calendar_instance
