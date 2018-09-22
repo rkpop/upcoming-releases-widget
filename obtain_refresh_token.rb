@@ -1,5 +1,5 @@
 require 'google_calendar'
-require_relative 'Config'
+require_relative 'config'
 
 config = Config.new('config.toml').calendar_conf
 
