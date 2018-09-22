@@ -1,5 +1,5 @@
 require 'sqlite3'
-require_relative 'Config'
+require_relative 'config'
 
 config = Config.new('config.toml').sqlite_conf
 
