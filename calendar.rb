@@ -15,7 +15,10 @@ class Calendar
     data.each do |entry|
       proper_entry = generate_calendar(entry)
       cal_id = @database.check_entry(proper_entry[:title])
-      if cal_id.nil? then upload(proper_entry) else update(cal_id, proper_entry)
+      if cal_id.nil?
+        upload proper_entry
+      else
+        update cal_id, proper_entry
       end
     end
   end
@@ -24,18 +27,24 @@ class Calendar
 
   def generate_calendar(entry)
     title = "#{entry[:artist_name]} - #{entry[:album_title]}"
-    start_time = Time.new(current_time[:year],
-                          current_time[:month],
-                          entry[:release_date],
-                          entry[:release_time][:hour],
-                          entry[:release_time][:minute],
-                          0,
-                          '+09:00')
+    start_time = generate_time(entry)
     final_structure = { title: title,
                         start_time: start_time,
                         end_time: start_time + 3600,
                         description: entry[:album_type] }
     final_structure
+  end
+
+  def generate_time(entry)
+    time = Time.new(current_time[:year],
+                    current_time[:month],
+                    entry[:release_date],
+                    entry[:release_time][:hour],
+                    entry[:release_time][:minute],
+                    0,
+                    '+09:00')
+
+    time
   end
 
   def upload(proper_entry)
