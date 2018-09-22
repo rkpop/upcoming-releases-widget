@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'google_calendar'
 require_relative 'config'
 
