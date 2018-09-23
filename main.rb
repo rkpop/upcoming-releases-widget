@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'config'
-require_relative 'calendar'
-require_relative 'database'
-require_relative 'parser'
+require './config'
+require './calendar'
+require './database'
+require './parser'
 
 def main
   config = Config.new('config.toml')

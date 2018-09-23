@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'google_calendar'
-require_relative 'time_wrapper'
-require_relative 'database'
+require './time_wrapper'
+require './database'
 require 'time'
 
 # Calendar class
