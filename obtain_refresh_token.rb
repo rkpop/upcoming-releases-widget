@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'google_calendar'
-require 'config'
+require_relative 'config'
 
 config = Config.new('config.toml').calendar_conf
 

@@ -2,7 +2,7 @@
 
 require 'httparty'
 require 'nokogiri'
-require './time_wrapper'
+require_relative 'time_wrapper'
 
 def row_get(html)
   table = Nokogiri::HTML(html).css('table')[1]

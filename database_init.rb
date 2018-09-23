@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'sqlite3'
-require './config'
+require_relative 'config'
 
 config = Config.new('config.toml').sqlite_conf
 
