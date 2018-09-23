@@ -15,6 +15,8 @@ class Config
   end
 
   def sqlite_conf
-    @config[:sqlite]
+    retval = File.dirname(__FILE__) + @config[:sqlite][:database_name]
+
+    retval
   end
 end

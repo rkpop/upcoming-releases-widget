@@ -6,10 +6,10 @@ require_relative 'database'
 require_relative 'parser'
 
 def main
-  config = Config.new('config.toml')
+  config = Config.new(File.dirname(__FILE__) + '/config.toml')
   cal_conf = config.calendar_conf
   calendar = Calendar.new(create_gcal(cal_conf),
-                          Database.new(config.sqlite_conf[:database_name]))
+                          Database.new(config.sqlite_conf))
   time = current_time
   response = request(time)
   result = parse(response)

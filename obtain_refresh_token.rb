@@ -3,7 +3,7 @@
 require 'google_calendar'
 require_relative 'config'
 
-config = Config.new('config.toml').calendar_conf
+config = Config.new(File.dirname(__FILE__) + '/config.toml').calendar_conf
 
 # Create an instance of the calendar.
 cal = Google::Calendar.new(client_id:      config[:client_id],
