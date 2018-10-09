@@ -10,8 +10,8 @@ def row_get(html)
   field_of_interest
 end
 
-def process_release_time(row_text)
-  return { hour: 0, minute: 0 } if [''].include? row_text
+def process_release_time(row_text, release_time)
+  return release_time if [''].include? row_text
   return { hour: 18, minute: 0 } if ['?'].include? row_text
 
   split = row_text.split(':')
@@ -26,7 +26,7 @@ end
 
 def data_generation(row_data, release_date)
   release_date = process_release_date(row_data[0].text, release_date)
-  release_time = process_release_time(row_data[1].text)
+  release_time = process_release_time(row_data[1].text, release_time)
   result = { release_date: release_date, release_time: release_time,
              artist_name: row_data[2].text, album_title: row_data[3].text,
              album_type: row_data[4].text, title_track: row_data[5].text }
