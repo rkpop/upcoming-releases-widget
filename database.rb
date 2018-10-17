@@ -20,6 +20,6 @@ class Database
 
   def add_entry(entry)
     @instance.execute('insert into entries (cal_id, artist, release_time) VALUES (?, ?, ?)',
-                      [entry[:cal_id], entry[:title], entry[:mon_y]])
+                      [entry[:cal_id], entry[:artist], entry[:mon_y]])
   end
 end

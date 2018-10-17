@@ -59,7 +59,9 @@ class Calendar
       e.end_time = proper_entry[:end_time]
       e.description = proper_entry[:description]
     end
-    database_input = { cal_id: event_id.id, title: proper_entry[:title] }
+    database_input = { cal_id: event_id.id,
+                       artist: proper_entry[:artist],
+                       mon_y: proper_entry[:mon_y] }
     @database.add_entry(database_input)
   end
 
