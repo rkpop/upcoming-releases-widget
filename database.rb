@@ -9,17 +9,17 @@ class Database
     @instance = SQLite3::Database.new database_name
   end
 
-  def check_entry(entry_name)
+  def check_entry(artist_name, release_time)
     result = nil
-    @instance.execute('select * from entries where title = ? LIMIT 1',
-                      entry_name) do |row|
+    @instance.execute('select * from entries where artist = ? AND release_time = ? LIMIT 1',
+                      artist_name, release_time) do |row|
                         result = row[0] unless row.nil?
                       end
     result
   end
 
   def add_entry(entry)
-    @instance.execute('insert into entries (cal_id, title) VALUES (?, ?)',
-                      [entry[:cal_id], entry[:title]])
+    @instance.execute('insert into entries (cal_id, artist, release_time) VALUES (?, ?, ?)',
+                      [entry[:cal_id], entry[:title], entry[:mon_y]])
   end
 end

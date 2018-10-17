@@ -9,6 +9,7 @@ db = SQLite3::Database.new(config)
 db.execute <<-SQL
   create table entries (
     cal_id VARCHAR(50),
-    title VARCHAR(280)
+    artist VARCHAR(280),
+    release_time VARCHAR(280)
   );
 SQL

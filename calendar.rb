@@ -16,7 +16,7 @@ class Calendar
   def add_entry(data)
     data.each do |entry|
       proper_entry = generate_calendar(entry)
-      cal_id = @database.check_entry(proper_entry[:title])
+      cal_id = @database.check_entry proper_entry[:artist], proper_entry[:mon_y]
       if cal_id.nil?
         upload proper_entry
       else
@@ -30,10 +30,13 @@ class Calendar
   def generate_calendar(entry)
     title = "#{entry[:artist_name]} - #{entry[:album_title]}"
     start_time = generate_time(entry)
-    final_structure = { title: title,
+    mon_y = "#{start_time.mon},#{start_time.year}"
+    final_structure = { artist: entry[:artist_name],
+                        title: title,
                         start_time: start_time,
                         end_time: start_time + 3600,
-                        description: entry[:album_type] }
+                        description: entry[:album_type],
+                        mon_y: mon_y }
     final_structure
   end
 
@@ -62,6 +65,7 @@ class Calendar
 
   def update(id, proper_entry)
     @calendar.find_or_create_event_by_id(id) do |e|
+      e.title = proper_entry[:title]
       e.start_time = proper_entry[:start_time]
       e.end_time = proper_entry[:end_time]
     end
