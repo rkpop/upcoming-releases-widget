@@ -5,7 +5,7 @@ require 'nokogiri'
 require_relative 'time_wrapper'
 
 def row_get(html)
-  table = Nokogiri::HTML(html).css('table')[1]
+  table = Nokogiri::HTML(html).css('table')[0]
   field_of_interest = table.css('tbody').css('tr')
   field_of_interest
 end
