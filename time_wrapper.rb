@@ -7,6 +7,6 @@ def current_time
   month = Date::MONTHNAMES[today.month]
   final_structure = { year: today.year,
                       month: today.month,
-                      month_literal: month }
+                      month_literal: month.downcase }
   final_structure
 end
