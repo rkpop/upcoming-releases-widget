@@ -16,7 +16,7 @@ GEM
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     insensitive_hash (0.3.3)
-    json (2.1.0)
+    json (2.3.0)
     jwt (2.1.0)
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
